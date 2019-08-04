@@ -122,7 +122,7 @@ app.use(cors({origin: true}));
 app.use(cookieParser());
 app.use(express.static(__dirname));
 
-app.get('/', (req, res) => {
+app.use((req, res, next) => {
   const cookie = req.cookies.id;
   if (cookie === undefined) {
     getLastUser().then((user) => {
@@ -134,8 +134,14 @@ app.get('/', (req, res) => {
         expires: false,
       });
       makeUser(id);
+      next();
     });
+  } else {
+    next();
   }
+});
+
+app.get('/', (req, res) => {
   res.render('index.html', {});
 });
 
@@ -156,7 +162,7 @@ app.get('/update/users/:id', (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
   fetchOffers().then((offers) => {
     updateWebsitesDatabase(offers);
   });
@@ -165,4 +171,5 @@ app.listen(process.env.PORT, () => {
       updateWebsitesDatabase(offers);
     });
   }, 60000);
+  console.log('running on port 3000');
 });
