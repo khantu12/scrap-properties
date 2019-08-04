@@ -162,7 +162,7 @@ app.get('/update/users/:id', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   fetchOffers().then((offers) => {
     updateWebsitesDatabase(offers);
   });
