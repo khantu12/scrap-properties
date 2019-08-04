@@ -1,6 +1,5 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const cheerio = require('cheerio');
 const rp = require('request-promise');
 const axios = require('axios');
@@ -66,22 +65,14 @@ const fetchOffers = async () => {
   ]).then((result) => [].concat([], ...result));
 };
 
-const makeUser = (id) => {
+const makeUser = async (id) => {
   const date = new Date();
   const time = date.getTime();
-  const xmlhttp = new XMLHttpRequest();
-  xmlhttp.open(
-    'POST',
-    'https://js-scrap-properties.firebaseio.com/users.json',
-    true
-  );
-  xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-  const data = {
+  axios.post('https://js-scrap-properties.firebaseio.com/users.json', {
     id: id,
     last_seen: time,
-    offers: '',
-  };
-  xmlhttp.send(JSON.stringify(data));
+    offers: await getOffers(),
+  });
 };
 
 const updateUser = (key, offers) => {
