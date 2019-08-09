@@ -50,16 +50,26 @@ const app = new Vue({
       }
     },
     async action() {
+      this.id = await this.setLocalStorageId();
+      await fetch('/api/make-user/' + this.id);
       await this.getOffers().then(() =>
         this.getUserOffers().then(() => this.difference())
       );
     },
-    assignCookie() {
-      this.id = this.getCookie('id');
+    async setLocalStorageId() {
+      const localId = localStorage.getItem('id');
+      if (localId === undefined || localId === null || localId === '') {
+        const id = await fetch('/api/get-last-id')
+          .then((data) => data.json)
+          .then((result) => +result);
+        localStorage.setItem('id', id);
+        return id;
+      } else {
+        return localId;
+      }
     },
   },
   beforeMount() {
-    this.assignCookie();
     this.action();
     setInterval(() => {
       this.action();
