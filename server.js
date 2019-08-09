@@ -126,7 +126,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/get-last-id', (req, res) => {
-  getLastUserId().then((id) => res.send(id));
+  getLastUserId().then((id) => res.send(id.toString()));
 });
 
 app.get('/api/make-user/:id', (req, res) => {
