@@ -108,32 +108,29 @@ const getOffers = () => {
     });
 };
 
+const getLastUserId = () => {
+  getLastUser().then((user) => {
+    const lastUserId = user.id;
+    const id = lastUserId === undefined ? 1 : lastUserId + 1;
+    return id;
+  });
+};
+
 const app = express();
 app.use(cors({origin: true}));
 app.use(cookieParser());
 app.use(express.static(__dirname));
 
-app.use((req, res, next) => {
-  const cookie = req.cookies.id;
-  if (cookie === undefined) {
-    getLastUser().then((user) => {
-      const lastUserId = user.id;
-      const id = lastUserId === undefined ? 1 : lastUserId + 1;
-      res.cookie('id', id, {
-        expires: new Date(Date.now() + 900000),
-        httpOnly: false,
-        expires: false,
-      });
-      makeUser(id);
-      next();
-    });
-  } else {
-    next();
-  }
-});
-
 app.get('/', (req, res) => {
   res.render('index.html', {});
+});
+
+app.get('/api/get-last-id', (req, res) => {
+  getLastUserId().then((id) => res.send(id));
+});
+
+app.get('/api/make-user/:id', (req, res) => {
+  makeUser(req.params.id);
 });
 
 app.get('/api/users/:id', (req, res) => {
