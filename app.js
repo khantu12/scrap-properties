@@ -51,7 +51,6 @@ const app = new Vue({
     },
     async action() {
       this.id = await this.setLocalStorageId();
-      await fetch('/api/make-user/' + this.id);
       await this.getOffers().then(() =>
         this.getUserOffers().then(() => this.difference())
       );
@@ -60,9 +59,10 @@ const app = new Vue({
       const localId = localStorage.getItem('id');
       if (localId === undefined || localId === null || localId === '') {
         const id = await fetch('/api/get-last-id')
-          .then((data) => data.json)
+          .then((data) => data.json())
           .then((result) => +result);
         localStorage.setItem('id', id);
+        await fetch('/api/make-user/' + id);
         return id;
       } else {
         return localId;

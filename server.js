@@ -108,8 +108,8 @@ const getOffers = () => {
     });
 };
 
-const getLastUserId = () => {
-  getLastUser().then((user) => {
+const getLastUserId = async () => {
+  return await getLastUser().then((user) => {
     const lastUserId = user.id;
     const id = lastUserId === undefined ? 1 : lastUserId + 1;
     return id;
@@ -126,11 +126,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/get-last-id', (req, res) => {
-  getLastUserId().then((id) => res.send(id.toString()));
+  getLastUserId().then((id) => res.send(JSON.stringify(id)));
 });
 
 app.get('/api/make-user/:id', (req, res) => {
-  makeUser(req.params.id);
+  makeUser(+req.params.id);
 });
 
 app.get('/api/users/:id', (req, res) => {
@@ -150,7 +150,7 @@ app.get('/update/users/:id', (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
   fetchOffers().then((offers) => {
     updateWebsitesDatabase(offers);
   });
