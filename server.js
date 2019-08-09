@@ -6,8 +6,8 @@ const axios = require('axios');
 const websites = require('./websites.js').websites;
 const cors = require('cors');
 
-const getLastUser = async () => {
-  return await axios
+const getLastUser = () => {
+  return axios
     .get('https://js-scrap-properties.firebaseio.com/users.json')
     .then((res) => res.data)
     .then((data) => {
@@ -19,9 +19,9 @@ const getLastUser = async () => {
     });
 };
 
-const getUserById = async (id) => {
+const getUserById = (id) => {
   id = +id;
-  return await axios
+  return axios
     .get('https://js-scrap-properties.firebaseio.com/users.json')
     .then((res) => {
       const data = res.data;
@@ -39,7 +39,7 @@ const getUserById = async (id) => {
     });
 };
 
-const fetchOffer = async (website) => {
+const fetchOffer = (website) => {
   return rp({
     uri: website.url,
     transform: (body) => cheerio.load(body),
@@ -55,7 +55,7 @@ const fetchOffer = async (website) => {
   });
 };
 
-const fetchOffers = async () => {
+const fetchOffers = () => {
   const values = Object.values(websites);
   return Promise.all([
     fetchOffer(values[0]),
@@ -98,8 +98,8 @@ const updateWebsitesDatabase = (offers) => {
   axios.put('https://js-scrap-properties.firebaseio.com/websites.json', data);
 };
 
-const getOffers = async () => {
-  return await axios
+const getOffers = () => {
+  return axios
     .get('https://js-scrap-properties.firebaseio.com/websites.json')
     .then((res) => res.data)
     .then((data) => {
