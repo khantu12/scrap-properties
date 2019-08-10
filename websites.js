@@ -7,12 +7,12 @@ exports.websites = {
   friendlyhousing: {
     url: 'https://friendlyhousing.nl/en',
     condition: '/en/all-rentals/',
-    to_get: (href) => 'www.friendlyhousing.nl' + href,
+    to_get: (href) => 'https://www.friendlyhousing.nl' + href,
   },
   pararius: {
     url: 'https://www.pararius.com/apartments/eindhoven/room',
     condition: '/room-for-rent/eindhoven/',
-    to_get: (href) => 'www.pararius.com' + href,
+    to_get: (href) => 'https://www.pararius.com' + href,
   },
   goethvastgoed: {
     url:
