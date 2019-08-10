@@ -144,7 +144,7 @@ app.get('/api/get-last-id', (req, res) => {
 });
 
 app.get('/api/get-all-ids', (req, res) => {
-  getAllUserIds().then((all) => res.send(JSON.stringify(all)));
+  getAllUserIds().then((all) => res.send(all));
 });
 
 app.get('/api/make-user/:id', (req, res) => {
