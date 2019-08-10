@@ -143,7 +143,7 @@ app.get('/api/get-last-id', (req, res) => {
   getLastUserId().then((id) => res.send(JSON.stringify(id)));
 });
 
-app.het('/api/get-all-ids', (req, res) => {
+app.get('/api/get-all-ids', (req, res) => {
   getAllUserIds().then((all) => res.send(JSON.stringify(all)));
 });
 
