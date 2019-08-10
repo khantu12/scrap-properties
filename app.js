@@ -57,10 +57,10 @@ const app = new Vue({
     },
     async setLocalStorageId() {
       const localId = localStorage.getItem('id');
-      const allIds = await fetch('/api/get-all-ids')
+      const count = await fetch('/api/get-count-users')
         .then((data) => data.json())
         .then((result) => result);
-      console.log(allIds);
+      const present = localId <= count;
       if (
         localId === undefined ||
         localId === null ||
