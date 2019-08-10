@@ -19,6 +19,20 @@ const getLastUser = () => {
     });
 };
 
+const getAllUserIds = () => {
+  const allIds = [];
+  return axios
+    .get('https://js-scrap-properties.firebaseio.com/users.json')
+    .then((res) => {
+      const data = res.data;
+      const usersValues = Object.values(data);
+      for (let i = 0; i < usersValues.length; i++) {
+        allIds.push(usersValues[i].id);
+      }
+      return allIds;
+    });
+};
+
 const getUserById = (id) => {
   id = +id;
   return axios
@@ -127,6 +141,10 @@ app.get('/', (req, res) => {
 
 app.get('/api/get-last-id', (req, res) => {
   getLastUserId().then((id) => res.send(JSON.stringify(id)));
+});
+
+app.het('/api/get-all-ids', (req, res) => {
+  getAllUserIds().then((all) => res.send(JSON.stringify(all)));
 });
 
 app.get('/api/make-user/:id', (req, res) => {

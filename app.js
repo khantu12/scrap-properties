@@ -57,7 +57,14 @@ const app = new Vue({
     },
     async setLocalStorageId() {
       const localId = localStorage.getItem('id');
-      if (localId === undefined || localId === null || localId === '') {
+      const allIds = await fetch('/api/get-all-ids');
+      const present = allIds.includes(localId);
+      if (
+        localId === undefined ||
+        localId === null ||
+        localId === '' ||
+        !present
+      ) {
         const id = await fetch('/api/get-last-id')
           .then((data) => data.json())
           .then((result) => +result);
