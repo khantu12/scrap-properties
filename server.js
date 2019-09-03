@@ -67,6 +67,10 @@ const fetchOffer = (website) => {
 
 const fetchOffers = () => {
   const values = Object.values(websites);
+  // constfetchedOffers = [];
+  // for (let i = 0; i < 4; i++) {
+  //   fetchedOffers.push(fetchOffer(values[i]));
+  // }
   return Promise.all([
     fetchOffer(values[0]),
     fetchOffer(values[1]),
@@ -92,7 +96,7 @@ const updateUser = (key, offers) => {
   data['last_seen'] = time;
   data['offers'] = offers;
   const send = JSON.stringify(data);
-  axios.patch(
+  axios.put(
     'https://js-scrap-properties.firebaseio.com/users/' + key + '.json',
     send
   );
