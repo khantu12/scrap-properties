@@ -47,7 +47,7 @@ const app = new Vue({
             },
           });
         });
-        fetch('/update/users/' + this.id);
+        fetch('/api/update/users/' + this.id);
       }
     },
     async action() {

@@ -161,9 +161,9 @@ app.get('/api/offers', (req, res) => {
   getOffers().then((data) => res.send(data));
 });
 
-app.get('/update/users/:id', (req, res) => {
+app.get('/api/update/users/:id', (req, res) => {
   const id = req.params.id;
-  getUserById(di).then((user) => {
+  getUserById(id).then((user) => {
     getOffers().then((offers) => {
       updateUser(user.key, id, offers);
       res.send('success');
