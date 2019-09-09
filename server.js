@@ -89,13 +89,15 @@ const makeUser = async (id) => {
   });
 };
 
-const updateUser = (key, offers) => {
+const updateUser = (key, id, offers) => {
   const date = new Date();
   const time = date.getTime();
   const data = {};
+  data['id'] = id;
   data['last_seen'] = time;
   data['offers'] = offers;
   const send = JSON.stringify(data);
+  console.log(send);
   axios.put(
     'https://js-scrap-properties.firebaseio.com/users/' + key + '.json',
     send
@@ -160,9 +162,10 @@ app.get('/api/offers', (req, res) => {
 });
 
 app.get('/update/users/:id', (req, res) => {
-  getUserById(req.params.id).then((user) => {
+  const id = req.params.id;
+  getUserById(di).then((user) => {
     getOffers().then((offers) => {
-      updateUser(user.key, offers);
+      updateUser(user.key, id, offers);
       res.send('success');
     });
   });

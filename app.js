@@ -35,6 +35,7 @@ const app = new Vue({
         });
       };
       const diffReturn = diff(this.offers, this.user_offers);
+      console.log(diffReturn);
       if (diffReturn.length != 0) {
         this.diffBTwo.push(...diffReturn);
         diffReturn.forEach((oneDiff) => {
