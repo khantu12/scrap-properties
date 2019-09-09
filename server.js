@@ -97,7 +97,6 @@ const updateUser = (key, id, offers) => {
   data['last_seen'] = time;
   data['offers'] = offers;
   const send = JSON.stringify(data);
-  console.log(send);
   axios.put(
     'https://js-scrap-properties.firebaseio.com/users/' + key + '.json',
     send
