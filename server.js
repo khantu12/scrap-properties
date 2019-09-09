@@ -93,7 +93,7 @@ const updateUser = (key, id, offers) => {
   const date = new Date();
   const time = date.getTime();
   const data = {};
-  data['id'] = id;
+  data['id'] = +id;
   data['last_seen'] = time;
   data['offers'] = offers;
   const send = JSON.stringify(data);
