@@ -1,2 +1,3 @@
 # scrap-properties
-Show relevant properties from various websites that you have not seen
+A tool that fetches properties from various websites using web scrapping techniques.
+It shows relevant results and updates the properties list occasionally. 
